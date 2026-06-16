@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSIR UGC NET 2026 | Life Science Unit 2 | Scrutiny Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --forest:   #0d2b1f;
+  --moss:     #1e4d35;
+  --sage:     #3d7a58;
+  --mint:     #6dbf94;
+  --foam:     #d4f0e3;
+  --cream:    #f7faf8;
+  --lime:     #b8f07c;
+  --amber:    #f5a623;
+  --coral:    #e8614a;
+  --sky-b:    #4a90d9;
+  --ink:      #0f1c14;
+  --mist:     #e8f2ec;
+  --white:    #ffffff;
+  --correct:  #27ae60;
+  --wrong:    #e74c3c;
+  --gold:     #d4a843;
+  --radius:   14px;
+  --shadow:   0 4px 24px rgba(13,43,31,.12);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 15px;
+}
+.header {
+  background: var(--forest);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 90% 50%, rgba(61,122,88,.35) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 80% at 10% 80%, rgba(109,191,148,.12) 0%, transparent 60%);
+  padding: 24px 36px 18px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.logo-ring {
+  width: 76px; height: 76px; flex-shrink: 0;
+  border-radius: 50%;
+  border: 2.5px solid var(--mint);
+  overflow: hidden;
+  box-shadow: 0 0 0 6px rgba(109,191,148,.15);
+}
+.logo-ring img { width: 100%; height: 100%; object-fit: cover; }
+.header-copy { flex: 1; }
+.header-copy .eyebrow {
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--mint); margin-bottom: 4px;
+}
+.header-copy h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.65rem; font-weight: 900;
+  color: var(--white); line-height: 1.15;
+}
+.header-copy .unit-tag {
+  display: inline-block; margin-top: 6px;
+  background: rgba(184,240,124,.18); border: 1px solid rgba(184,240,124,.35);
+  color: var(--lime); font-size: .76rem; font-weight: 600;
+  padding: 3px 12px; border-radius: 20px; letter-spacing: .05em;
+}
+.header-badge {
+  background: var(--coral); color: #fff;
+  font-size: .75rem; font-weight: 700;
+  padding: 7px 18px; border-radius: 20px;
+  letter-spacing: .06em; text-transform: uppercase;
+  box-shadow: 0 3px 12px rgba(232,97,74,.4);
+  white-space: nowrap;
+}
+.nav-bar {
+  display: flex; gap: 0;
+  background: var(--moss);
+  overflow-x: auto;
+  padding: 0 24px;
+  border-bottom: 2px solid rgba(109,191,148,.2);
+}
+.nav-btn {
+  padding: 13px 20px;
+  background: transparent; border: none; cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: .82rem; font-weight: 600;
+  letter-spacing: .05em; text-transform: uppercase;
+  color: rgba(212,240,227,.65);
+  border-bottom: 3px solid transparent;
+  transition: all .2s; white-space: nowrap;
+}
+.nav-btn:hover { color: var(--mint); }
+.nav-btn.active { color: var(--lime); border-bottom-color: var(--lime); background: rgba(184,240,124,.07); }
+.page { display: none; max-width: 1180px; margin: 0 auto; padding: 32px 28px 60px; }
+.page.active { display: block; }
+.page-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.7rem; font-weight: 900; color: var(--forest);
+  margin-bottom: 6px;
+}
+.page-sub { font-size: .9rem; color: var(--sage); margin-bottom: 28px; }
+.topics-wrap {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 18px;
+}
+.topic-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1.5px solid rgba(61,122,88,.12);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .2s, box-shadow .2s;
+}
+.topic-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(13,43,31,.15); }
+.tc-head {
+  background: var(--forest);
+  padding: 16px 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.tc-letter {
+  width: 36px; height: 36px; flex-shrink: 0;
+  border-radius: 50%; border: 2px solid var(--mint);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 900;
+  color: var(--lime);
+}
+.tc-head h3 { font-size: .92rem; font-weight: 700; color: var(--white); line-height: 1.3; }
+.tc-body { padding: 16px 20px; }
+.tc-body p { font-size: .845rem; color: #3a4f42; line-height: 1.68; }
+.tc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.chip {
+  background: var(--foam); color: var(--sage);
+  border: 1px solid rgba(61,122,88,.2);
+  font-size: .7rem; font-weight: 600;
+  padding: 3px 10px; border-radius: 12px;
+}
+.quiz-setup {
+  background: var(--white); border-radius: var(--radius);
+  padding: 32px; border: 1.5px solid rgba(61,122,88,.14);
+  box-shadow: var(--shadow); max-width: 600px;
+}
+.quiz-setup h2 { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 900; color: var(--forest); margin-bottom: 8px; }
+.quiz-setup p { font-size: .88rem; color: var(--sage); margin-bottom: 22px; }
+.form-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: .78rem; font-weight: 700; color: var(--forest); letter-spacing: .05em; text-transform: uppercase; }
+.form-group select {
+  padding: 9px 14px; border-radius: 8px;
+  border: 1.5px solid rgba(61,122,88,.25);
+  font-family: inherit; font-size: .87rem; color: var(--ink);
+  background: var(--cream); cursor: pointer;
+}
+.scoreband {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  background: var(--white); border-radius: var(--radius);
+  padding: 16px 20px; margin-bottom: 20px;
+  border: 1.5px solid rgba(61,122,88,.12); box-shadow: var(--shadow);
+}
+.sb-item { text-align: center; min-width: 54px; }
+.sb-val { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 900; color: var(--sage); }
+.sb-lbl { font-size: .68rem; text-transform: uppercase; letter-spacing: .07em; color: #7a9084; margin-top: 2px; }
+.q-card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 26px 28px; border: 1.5px solid rgba(61,122,88,.12);
+  box-shadow: var(--shadow); margin-bottom: 14px;
+}
+.q-meta { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--sage); margin-bottom: 10px; }
+.q-stem { font-size: .97rem; font-weight: 600; line-height: 1.6; color: var(--ink); margin-bottom: 18px; }
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.opt-btn {
+  padding: 11px 14px; border-radius: 9px;
+  border: 1.5px solid rgba(61,122,88,.18);
+  background: var(--mist); color: var(--ink);
+  font-family: inherit; font-size: .85rem;
+  cursor: pointer; transition: all .18s;
+  text-align: left; line-height: 1.4;
+}
+.opt-btn:hover:not(:disabled) { background: var(--foam); border-color: var(--sage); }
+.opt-btn.correct { background: #d4edda; border-color: var(--correct); color: #145228; font-weight: 600; }
+.opt-btn.wrong   { background: #fde8e6; border-color: var(--wrong);   color: #7a1a13; }
+.opt-btn:disabled { cursor: default; }
+.q-exp {
+  background: #fffbf0; border-left: 4px solid var(--amber);
+  padding: 11px 15px; border-radius: 0 8px 8px 0;
+  font-size: .83rem; line-height: 1.65; margin-top: 12px; display: none;
+}
+.quiz-nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.result-panel {
+  background: linear-gradient(135deg, var(--forest) 0%, var(--moss) 100%);
+  color: #fff; border-radius: var(--radius);
+  padding: 40px; text-align: center;
+  box-shadow: 0 12px 40px rgba(13,43,31,.3);
+}
+.result-panel h2 { font-family: 'Fraunces', serif; font-size: 1.8rem; margin-bottom: 6px; }
+.big-pct { font-family: 'Fraunces', serif; font-size: 4.5rem; font-weight: 900; color: var(--lime); line-height: 1; margin: 14px 0; }
+.res-grid { display: flex; gap: 16px; justify-content: center; margin: 16px 0 24px; }
+.res-box { background: rgba(255,255,255,.1); border-radius: 10px; padding: 10px 22px; }
+.res-box .n { font-size: 1.6rem; font-weight: 700; }
+.res-box .l { font-size: .72rem; opacity: .75; text-transform: uppercase; letter-spacing: .06em; }
+.rev-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
+.rev-card {
+  background: var(--white); border-radius: var(--radius);
+  border-top: 4px solid var(--sage);
+  padding: 20px 22px; box-shadow: var(--shadow);
+}
+.rev-card.amber { border-top-color: var(--amber); }
+.rev-card.coral  { border-top-color: var(--coral); }
+.rev-card.lime   { border-top-color: var(--lime); }
+.rev-card.sky    { border-top-color: var(--sky-b); }
+.rev-card h3 {
+  font-family: 'Fraunces', serif;
+  font-size: .95rem; font-weight: 900; color: var(--forest); margin-bottom: 12px;
+}
+.rev-row {
+  display: flex; gap: 9px; align-items: flex-start;
+  padding: 7px 0; border-bottom: 1px solid rgba(0,0,0,.05);
+  font-size: .83rem; line-height: 1.55; color: #3a4f42;
+}
+.rev-row:last-child { border-bottom: none; }
+.dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--sage); flex-shrink: 0; margin-top: 5px;
+}
+.rev-card.amber .dot { background: var(--amber); }
+.rev-card.coral  .dot { background: var(--coral); }
+.rev-card.lime   .dot { background: #5a9c20; }
+.rev-card.sky    .dot { background: var(--sky-b); }
+.rev-row strong { color: var(--forest); font-weight: 700; }
+.btn {
+  padding: 10px 22px; border-radius: 9px; border: none;
+  cursor: pointer; font-family: inherit; font-weight: 600;
+  font-size: .86rem; transition: all .18s; letter-spacing: .02em;
+}
+.btn-green  { background: var(--sage); color: #fff; }
+.btn-green:hover  { background: var(--forest); }
+.btn-lime   { background: var(--lime); color: var(--forest); }
+.btn-lime:hover   { background: #a3db5e; }
+.btn-ghost  { background: var(--white); color: var(--forest); border: 1.5px solid rgba(61,122,88,.25); }
+.btn-ghost:hover  { background: var(--foam); }
+.btn-coral  { background: var(--coral); color: #fff; }
+.btn-coral:hover  { background: #c94d38; }
+footer {
+  text-align: center; padding: 22px 20px;
+  font-size: .8rem; color: #7a9084;
+  border-top: 1px solid rgba(61,122,88,.12);
+  background: var(--white); margin-top: 0;
+}
+footer strong { color: var(--forest); }
+footer .heart { color: var(--coral); }
+.prog-strip { background: rgba(255,255,255,.1); border-radius: 3px; height: 4px; margin-top: 10px; }
+.prog-fill  { background: var(--lime); height: 100%; border-radius: 3px; transition: width .4s; }
+@media(max-width:680px){
+  .header { padding: 14px 14px; }
+  .page   { padding: 20px 14px; }
+  .opts   { grid-template-columns: 1fr; }
+  .topics-wrap, .rev-grid { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo-ring">
+    <img src="data:image/jpeg;base64,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" alt="Scrutiny Academy">
+  </div>
+  <div class="header-copy">
+    <div class="eyebrow">Scrutiny Academy &middot; CSIR UGC NET 2026</div>
+    <h1>Unit 2 &mdash; Cellular Organization</h1>
+    <span class="unit-tag">Life Science &middot; 5 Major Topics &middot; 100 MCQs</span>
+    <div class="prog-strip"><div class="prog-fill" id="masterProg" style="width:0%"></div></div>
+  </div>
+  <div class="header-badge">2026 Prep</div>
+</header>
+
+<nav class="nav-bar">
+  <button class="nav-btn active" onclick="show('topics',this)">Topics</button>
+  <button class="nav-btn" onclick="show('quiz',this)">Quiz (100 Q)</button>
+  <button class="nav-btn" onclick="show('revision',this)">Quick Revision</button>
+</nav>
+
+<div class="page active" id="pg-topics">
+  <h2 class="page-title">Unit 2: Cellular Organization</h2>
+  <p class="page-sub">5 sub-topics. Read each card for the full concept explanation needed for CSIR UGC NET.</p>
+  <div class="topics-wrap" id="topicsGrid"></div>
+</div>
+
+<div class="page" id="pg-quiz">
+  <div id="qSetup">
+    <h2 class="page-title">Practice Quiz</h2>
+    <p class="page-sub">100 MCQs across all 5 sub-topics of Unit 2.</p>
+    <div class="quiz-setup">
+      <h2>Configure Your Session</h2>
+      <p>Choose how many questions and which topic to focus on.</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Questions per session</label>
+          <select id="qCount">
+            <option value="10">10 Questions</option>
+            <option value="20" selected>20 Questions</option>
+            <option value="50">50 Questions</option>
+            <option value="100">All 100 Questions</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Topic Filter</label>
+          <select id="qTopic">
+            <option value="all">All Topics</option>
+            <option value="A">A - Membrane Structure &amp; Function</option>
+            <option value="B">B - Intracellular Organelles</option>
+            <option value="C">C - Genes &amp; Chromosomes</option>
+            <option value="D">D - Cell Division &amp; Cell Cycle</option>
+            <option value="E">E - Microbial Physiology</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-green" onclick="startQuiz()" style="padding:11px 30px;font-size:.95rem;">Start Quiz</button>
+    </div>
+  </div>
+
+  <div id="qSession" style="display:none;">
+    <div class="scoreband">
+      <div class="sb-item"><div class="sb-val" id="sbCur">1</div><div class="sb-lbl">Question</div></div>
+      <div class="sb-item"><div class="sb-val" id="sbTot">20</div><div class="sb-lbl">Total</div></div>
+      <div class="sb-item"><div class="sb-val" id="sbRight" style="color:var(--correct)">0</div><div class="sb-lbl">Correct</div></div>
+      <div class="sb-item"><div class="sb-val" id="sbWrong" style="color:var(--coral)">0</div><div class="sb-lbl">Wrong</div></div>
+      <div class="sb-item"><div class="sb-val" id="sbPct">0%</div><div class="sb-lbl">Score</div></div>
+    </div>
+    <div class="q-card" id="qCard"></div>
+    <div class="quiz-nav">
+      <button class="btn btn-ghost" onclick="quitQuiz()">Quit</button>
+      <button class="btn btn-green" id="nextBtn" onclick="nextQ()" style="display:none;">Next</button>
+    </div>
+  </div>
+
+  <div id="qResult" style="display:none;"></div>
+</div>
+
+<div class="page" id="pg-revision">
+  <h2 class="page-title">Quick Revision Sheets</h2>
+  <p class="page-sub">High-yield facts, numbers, and mnemonics for last-minute review before the exam.</p>
+  <div class="rev-grid" id="revGrid"></div>
+</div>
+
+<footer>
+  Made with lots of <span class="heart">&hearts;</span> by <strong>Dr. Pramod Sharma (AIIMS Delhi)</strong> &middot; Scrutiny Academy &middot; CSIR UGC NET 2026 Life Science
+</footer>
+
+<script>
+
+function show(id, btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pg-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+const TOPICS = [
+  { id:'A', title:'Membrane Structure & Function',
+    body:`<p><b>Fluid Mosaic Model</b> (Singer & Nicolson, 1972): membranes are a fluid phospholipid bilayer with embedded proteins. Lipids: phospholipids (glycerophospholipids, sphingomyelin), cholesterol (stabilises fluidity), glycolipids. Hydrophobic tails face inward; hydrophilic heads face aqueous environments.</p>
+    <p style="margin-top:9px"><b>Membrane proteins:</b> Integral (transmembrane, monotopic) vs peripheral. Functions: transport, signalling, adhesion, enzymatic activity. Lateral diffusion (FRAP technique); flip-flop (transverse diffusion) is rare and requires flippases/floppases.</p>
+    <p style="margin-top:9px"><b>Transport:</b> Passive (simple diffusion, facilitated diffusion via channels/carriers), Active (primary &mdash; Na+/K+-ATPase, H+-ATPase, Ca2+-ATPase; secondary &mdash; cotransport using Na+ gradient). Ion channels: voltage-gated, ligand-gated, mechanosensitive. Osmosis: water movement via aquaporins (AQP). Electrical properties: resting membrane potential ~-70 mV (neurons); action potential.</p>
+    <p style="margin-top:9px"><b>Vesicular trafficking:</b> COPII (ER&rarr;Golgi), COPI (Golgi&rarr;ER, intra-Golgi), Clathrin (TGN&rarr;lysosome, endocytosis). GTPases (Rab, ARF) regulate sorting. Signal sequences & receptors (mannose-6-phosphate for lysosomal targeting).</p>`,
+    tags:['Fluid Mosaic','Lipid Bilayer','Ion Channels','Active Transport','FRAP','Vesicles','Osmosis'] },
+  { id:'B', title:'Intracellular Organelles',
+    body:`<p><b>Nucleus:</b> Double membrane (nuclear envelope) with nuclear pore complexes (~120 nm, 30 MDa). Nucleolus: rRNA synthesis. Chromatin: DNA + histones. Lamins (intermediate filaments) line inner membrane.</p>
+    <p style="margin-top:9px"><b>Mitochondria:</b> Double membrane; cristae (inner membrane folds); matrix (TCA, beta-oxidation, mtDNA). ~1000&ndash;2000 per cell. Semi-autonomous (own circular DNA, 70S ribosomes). Endosymbiotic origin.</p>
+    <p style="margin-top:9px"><b>ER:</b> Rough ER (ribosomes, protein synthesis/glycosylation, disulfide bond formation). Smooth ER (lipid synthesis, drug detox, Ca2+ store, steroid synthesis). <b>Golgi apparatus:</b> Cis&rarr;medial&rarr;trans cisternae; O-glycosylation, phosphorylation, sorting/packaging.</p>
+    <p style="margin-top:9px"><b>Lysosomes:</b> pH ~4.8; ~50 hydrolytic enzymes; autophagy, phagocytosis, receptor-mediated endocytosis. <b>Peroxisomes:</b> H2O2 generation & breakdown (catalase); beta-oxidation of very-long-chain FA; plasmalogen synthesis. <b>Plastids (plants):</b> Chloroplasts (photosynthesis &mdash; thylakoids + stroma), amyloplasts, chromoplasts. <b>Vacuoles:</b> Central vacuole in plants (turgor, storage). <b>Cell wall:</b> Plants &mdash; cellulose microfibrils; fungi &mdash; chitin; bacteria &mdash; peptidoglycan.</p>
+    <p style="margin-top:9px"><b>Cytoskeleton:</b> Microfilaments (actin, 7 nm, treadmilling, cell shape/motility), Microtubules (tubulin alpha-beta, 25 nm, GTP-cap, kinesin/dynein motors, cilia/flagella), Intermediate filaments (10 nm, tensile strength &mdash; keratins, vimentin, lamin, neurofilaments). Motor proteins: myosin (actin), kinesin (anterograde, MT), dynein (retrograde, MT).</p>`,
+    tags:['Nucleus','Mitochondria','ER/Golgi','Lysosome','Peroxisome','Cytoskeleton','Chloroplast','Cell Wall'] },
+  { id:'C', title:'Genes, Chromosomes & Chromatin',
+    body:`<p><b>Operon (Jacob & Monod, 1961):</b> Lac operon &mdash; negative inducible (repressor + inducer); Trp operon &mdash; negative repressible. Attenuation in trp operon. Regulatory sequences: promoter, operator, enhancers, silencers.</p>
+    <p style="margin-top:9px"><b>DNA organisation:</b> Unique sequences (single-copy, protein-coding, ~40-70%); Moderately repetitive (gene families, rDNA, histone genes, satellite DNA); Highly repetitive (tandem repeats, >10^5 copies, constitutive heterochromatin &mdash; centromeres, telomeres, never transcribed). C-value paradox.</p>
+    <p style="margin-top:9px"><b>Interrupted genes (eukaryotes):</b> Exons (expressed) + introns (intervening sequences). Pre-mRNA splicing: spliceosome (snRNPs &mdash; U1,U2,U4,U5,U6; branch point A, 5'/3' splice sites). Alternative splicing generates protein diversity.</p>
+    <p style="margin-top:9px"><b>Chromatin:</b> Nucleosome: 146 bp DNA + histone octamer (2&times;H2A, H2B, H3, H4) + H1 linker. 30-nm fibre &rarr; loops &rarr; scaffold. Euchromatin: loose, transcriptionally active. Heterochromatin: compact, inactive &mdash; constitutive (centromere, telomere) vs facultative (Barr body/inactivated X, imprinted loci). Histone modifications: acetylation (active), methylation (active H3K4, repressive H3K9/27), phosphorylation, ubiquitination.</p>
+    <p style="margin-top:9px"><b>Transposons:</b> Class I (retrotransposons &mdash; copy-paste via RNA intermediate: LINEs, SINEs); Class II (DNA transposons &mdash; cut-paste, DDE transposase). Barbara McClintock discovered in maize.</p>`,
+    tags:['Operon','Chromatin','Nucleosome','Transposons','Heterochromatin','Introns/Exons','Repetitive DNA'] },
+  { id:'D', title:'Cell Division & Cell Cycle',
+    body:`<p><b>Cell Cycle phases:</b> G1 (growth, restriction point) &rarr; S (DNA synthesis, replication) &rarr; G2 (growth, repair check) &rarr; M (mitosis/meiosis). G0 = quiescent. Typical mammalian cell cycle: ~24 hours (S ~8h, G2 ~4h, M ~1h, G1 remainder).</p>
+    <p style="margin-top:9px"><b>Regulation:</b> Cyclins (oscillate) + CDKs (stable). Major complexes: Cyclin D-CDK4/6 (G1 progression), Cyclin E-CDK2 (G1&rarr;S), Cyclin A-CDK2 (S phase), Cyclin B-CDK1/CDC2 (MPF &mdash; M phase promoting factor). CKIs: p21 (CIP/KIP), p27, p57, p16 (INK4). Rb protein: phosphorylated by Cyclin D-CDK4/6 &rarr; releases E2F &rarr; transcription of S-phase genes.</p>
+    <p style="margin-top:9px"><b>Checkpoints:</b> G1/S checkpoint (DNA damage, Rb/p53); S-phase checkpoint (replication forks); G2/M checkpoint (DNA repair, ATM/ATR, Chk1/Chk2); Spindle assembly checkpoint (SAC &mdash; Mad2, BubR1, securin/separase/cohesin). p53: "guardian of the genome" &mdash; activates p21 &rarr; cell cycle arrest; activates Bax &rarr; apoptosis.</p>
+    <p style="margin-top:9px"><b>Mitosis:</b> Prophase (chromatin condenses, asters form) &rarr; Prometaphase (NE breaks down, MT attach kinetochores) &rarr; Metaphase (chromosomes align at plate) &rarr; Anaphase A&B (sister chromatids separate &mdash; cohesin cleavage by separase; poles move apart) &rarr; Telophase & Cytokinesis (contractile ring, actin-myosin).</p>
+    <p style="margin-top:9px"><b>Meiosis:</b> Meiosis I: homologous chromosomes separate (reductional). Prophase I stages: Leptotene, Zygotene (synapsis), Pachytene (crossing over/chiasmata), Diplotene, Diakinesis. Synaptonemal complex, Holliday junction. Meiosis II: sister chromatid separation (equational). Generates genetic diversity via crossing-over and independent assortment.</p>`,
+    tags:['Cell Cycle','CDK/Cyclins','Checkpoints','Mitosis','Meiosis','p53','MPF','SAC'] },
+  { id:'E', title:'Microbial Physiology',
+    body:`<p><b>Bacterial growth curve:</b> Lag phase (adaptation, enzyme synthesis, no division) &rarr; Exponential/Log phase (constant doubling time, most metabolically active) &rarr; Stationary phase (growth rate = death rate; secondary metabolites, sporulation) &rarr; Death/Decline phase (cells die faster than divide). Generation time (g): time to double population. N = N0 &times; 2^n.</p>
+    <p style="margin-top:9px"><b>Growth yield:</b> Y (yield coefficient) = biomass produced / substrate consumed. ATP yield coefficient (Y_ATP) = biomass per mol ATP. Molar growth yield (Y_molar) used for specific substrates. Affected by: temperature, pH, oxygen tension, water activity, nutrients.</p>
+    <p style="margin-top:9px"><b>Strategies of cell division:</b> Binary fission (bacteria &mdash; FtsZ ring, Z-ring, divisome complex; treadmilling). Budding (Caulobacter, yeast). Multiple fission (some algae). Symmetric vs asymmetric division (Bacillus subtilis sporulation &mdash; mother cell + forespore; Caulobacter &mdash; stalk + swarmer).</p>
+    <p style="margin-top:9px"><b>Stress responses:</b> Heat shock response: sigma factor s32/rpoH upregulates chaperones (GroEL, GroES, DnaK, DnaJ, ClpB). Cold shock: RNA helicases, cold shock proteins (CspA family). Oxidative stress: SoxRS (O2- sensor), OxyR (H2O2 sensor) &mdash; upregulate SOD, catalase, thioredoxins. SOS response (DNA damage): RecA + LexA &mdash; RecA inactivates LexA repressor &rarr; upregulates &gt;40 SOS genes (UvrABC, RecA, UmuD/C). Osmotic stress: K+ uptake, accumulate compatible solutes (betaine, proline, trehalose). Acid tolerance response (ATR): sigma factor sS (RpoS). Quorum sensing: autoinducers (AHL in gram -ve; CSP in gram +ve) coordinate population-level responses.</p>`,
+    tags:['Growth Curve','Binary Fission','SOS Response','Heat Shock','FtsZ','Quorum Sensing','Stress'] },
+];
+
+document.getElementById('topicsGrid').innerHTML = TOPICS.map(t=>`
+<div class="topic-card">
+  <div class="tc-head">
+    <div class="tc-letter">${t.id}</div>
+    <h3>${t.title}</h3>
+  </div>
+  <div class="tc-body">
+    ${t.body}
+    <div class="tc-tags">${t.tags.map(g=>`<span class="chip">${g}</span>`).join('')}</div>
+  </div>
+</div>`).join('');
+
+
+let qPool=[], qIdx=0, qRight=0, qWrong=0, answered=false;
+
+const QDB = [
+{t:'A',q:'The fluid mosaic model of membrane structure was proposed by:',o:['Davson & Danielli','Singer & Nicolson','Robertson','Gorter & Grendel'],a:1,e:'Singer & Nicolson (1972) proposed the fluid mosaic model: proteins float in a fluid phospholipid bilayer. Gorter & Grendel (1925) discovered the bilayer; Robertson proposed the unit membrane; Davson-Danielli proposed the sandwich model (lipid bilayer + protein coat).'},
+{t:'A',q:'Which technique is used to measure lateral diffusion of membrane proteins?',o:['SDS-PAGE','FRAP (Fluorescence Recovery After Photobleaching)','Western blotting','Electron microscopy'],a:1,e:'FRAP: a defined membrane area is photobleached with a laser; fluorescence recovery speed measures lateral diffusion coefficient of the labelled membrane protein or lipid.'},
+{t:'A',q:'Which lipid is primarily responsible for maintaining membrane fluidity at low temperatures?',o:['Sphingomyelin','Cholesterol','Phosphatidylserine','Ceramide'],a:1,e:'Cholesterol inserts between phospholipids and acts as a fluidity buffer: it disorders tightly packed saturated tails at low temperatures (prevents gel formation) and orders loosely packed unsaturated tails at high temperatures.'},
+{t:'A',q:'The Na+/K+-ATPase pump transports ions in which ratio?',o:['2 Na+ out, 3 K+ in','3 Na+ out, 2 K+ in','1 Na+ out, 1 K+ in','2 Na+ out, 2 K+ in'],a:1,e:'Na+/K+-ATPase: for each ATP hydrolysed it pumps 3 Na+ OUT and 2 K+ IN. This electrogenic pump maintains the resting membrane potential (~-70 mV in neurons) and the ion gradients essential for secondary active transport.'},
+{t:'A',q:'Mannose-6-phosphate (M6P) is a sorting signal for proteins destined to:',o:['ER lumen','Cell surface','Lysosomes','Nucleus'],a:2,e:'Lysosomal hydrolases are tagged with mannose-6-phosphate in the Golgi. M6P receptors in the trans-Golgi network capture these enzymes and package them into clathrin-coated vesicles headed for late endosomes/lysosomes. I-cell disease: defect in this tagging.'},
+{t:'A',q:'COPII vesicles are responsible for transport from:',o:['Golgi to ER','ER to Golgi','Golgi to plasma membrane','Endosome to lysosome'],a:1,e:'COPII coated vesicles bud from the ER and move cargo to the Golgi (anterograde). Coat components: Sar1 GTPase, Sec23/24, Sec13/31. COPI mediates retrograde Golgi-to-ER and intra-Golgi transport.'},
+{t:'A',q:'Aquaporins are:',o:['ATP-gated ion channels','Water channel proteins','Na+/K+ co-transporters','Lipid transfer proteins'],a:1,e:'Aquaporins (Peter Agre, Nobel 2003): integral membrane proteins forming narrow channels highly selective for water. AQP1 is in RBCs and kidney proximal tubule; AQP2 in collecting duct (regulated by vasopressin/ADH).'},
+{t:'A',q:'Which of the following is an example of secondary active transport?',o:['Na+/K+-ATPase','Glucose-Na+ symporter (SGLT1)','CFTR Cl- channel','H+-ATPase'],a:1,e:'Secondary active transport couples uphill movement of one solute to downhill movement of another. SGLT1 uses the Na+ gradient (maintained by Na+/K+-ATPase) to drive glucose uptake. Na+/K+-ATPase itself is PRIMARY active transport.'},
+{t:'A',q:'The electrical resting membrane potential of a typical mammalian neuron is approximately:',o:['+55 mV','-70 mV','-90 mV','0 mV'],a:1,e:'Resting membrane potential is approximately -70 mV in mammalian neurons, generated mainly by the K+ equilibrium potential plus small Na+ leak, and maintained by Na+/K+-ATPase.'},
+{t:'A',q:'Flip-flop (transverse diffusion) of membrane phospholipids is:',o:['Very rapid, occurs in milliseconds','Slow and rare; requires enzyme assistance (flippases/scramblases)','Driven directly by ATP hydrolysis in all cases','Common for cholesterol only'],a:1,e:'Transverse diffusion (flip-flop) is very slow because the polar headgroup must traverse the hydrophobic core. Enzymes: flippases (inward), floppases (outward, ABC transporters), scramblases (bidirectional, Ca2+-activated). Lateral diffusion is far faster.'},
+{t:'A',q:'The protein responsible for forming lipid rafts in membranes is most associated with:',o:['Cholesterol and sphingolipids','Phosphatidylcholine and unsaturated fatty acids','Phosphatidylinositol only','Cardiolipin'],a:0,e:'Lipid rafts: ordered membrane microdomains enriched in cholesterol and sphingolipids that float in the more fluid unsaturated phospholipid bilayer. Rafts concentrate GPI-anchored proteins and signalling molecules.'},
+{t:'A',q:'Which clathrin adaptor complex is involved in TGN-to-endosome sorting?',o:['AP-1','AP-2','AP-3','AP-4'],a:0,e:'AP-1 is a clathrin adaptor at the TGN that recruits clathrin to package M6P-receptor-lysosomal enzyme cargo for transport to late endosomes. AP-2 mediates clathrin-mediated endocytosis at the plasma membrane.'},
+{t:'A',q:'The driving force for osmosis across a semipermeable membrane is:',o:['Hydrostatic pressure difference','Osmotic pressure (difference in water activity/solute concentration)','Electrochemical gradient of Na+','Temperature gradient'],a:1,e:'Osmosis is the net movement of water from high water activity (low solute) to low water activity (high solute) across a semipermeable membrane. Osmotic pressure is the pressure needed to prevent this movement.'},
+{t:'A',q:'Which GTPase regulates vesicle docking and fusion at the target membrane?',o:['ARF','Sar1','Rab GTPases','Dynamin'],a:2,e:'Rab GTPases mark specific organelle/membrane compartments. Active Rab-GTP recruits effectors (tethering factors, motors). SNAREs catalyse the actual membrane fusion, with Rab promoting tethering before SNARE zippering.'},
+{t:'A',q:'The H+/K+-ATPase (proton pump) in gastric parietal cells:',o:['Pumps H+ into cytoplasm','Pumps H+ into the stomach lumen exchanging K+','Is a ligand-gated channel','Uses Na+ gradient to drive H+ secretion'],a:1,e:'The H+/K+-ATPase in gastric parietal cell canalicular membrane pumps H+ out into the lumen (acidifying stomach to pH 1-2) while importing K+. Target of proton pump inhibitors like omeprazole.'},
+{t:'A',q:'Signal recognition particle (SRP) is involved in:',o:['Nuclear import of proteins','Targeting of secretory/membrane proteins to the rough ER','Autophagy initiation','Peroxisome import'],a:1,e:'SRP recognises the N-terminal ER signal sequence on nascent polypeptides. The SRP-ribosome complex docks at the SRP receptor on the rough ER membrane, and co-translational translocation begins through the Sec61 channel.'},
+{t:'A',q:'Which type of membrane transport does NOT require a protein?',o:['Facilitated diffusion','Active transport','Simple diffusion of non-polar/small molecules','Ion channel transport'],a:2,e:'Simple diffusion: small non-polar molecules (O2, CO2, N2, steroid hormones) can diffuse directly through the lipid bilayer down their concentration gradient without a protein. All other options require transport proteins.'},
+{t:'A',q:'The SNARE hypothesis of membrane fusion was established by:',o:['Rothman & Schekman (Nobel 2013)','Singer & Nicolson','Mitchell','Palade'],a:0,e:'James Rothman, Randy Schekman, and Thomas Sudhof shared the 2013 Nobel Prize for work on intracellular vesicle trafficking, including the SNARE hypothesis of membrane fusion.'},
+{t:'A',q:'Voltage-gated Na+ channels are blocked by:',o:['Tetrodotoxin (TTX)','Ouabain','Verapamil','Alpha-bungarotoxin'],a:0,e:'Tetrodotoxin (TTX), from puffer fish, blocks voltage-gated Na+ channels by plugging the selectivity filter from outside. Ouabain blocks Na+/K+-ATPase. Verapamil blocks L-type Ca2+ channels. Alpha-bungarotoxin blocks nicotinic ACh receptors.'},
+{t:'A',q:'In receptor-mediated endocytosis, the receptor-ligand complex is concentrated in:',o:['Smooth ER invaginations','Caveolae only','Clathrin-coated pits','Lipid rafts only'],a:2,e:'Clathrin-coated pits: AP-2 adaptors bind signals on cytoplasmic tails of receptors; clathrin forms the lattice. Dynamin GTPase pinches off the vesicle. Classic example: LDL receptor uptake.'},
+{t:'A',q:'Which component is responsible for the negative charge on the outer leaflet of the plasma membrane?',o:['Phosphatidylserine (inner leaflet)','Phosphatidylinositol-4,5-bisphosphate (PIP2)','Glycolipids and sialic acid residues on glycocalyx','Cholesterol'],a:2,e:'The extracellular glycocalyx, bearing sialic acid residues, gives the outer surface a net negative charge. Phosphatidylserine is on the inner leaflet, and its appearance on the outer leaflet signals apoptosis.'},
+
+{t:'B',q:'Nuclear pore complexes (NPCs) have an approximate molecular weight of:',o:['1 MDa','30 MDa','500 kDa','100 MDa'],a:1,e:'NPCs are about 120 nm in diameter and 30 MDa in mass, made of around 30 different nucleoporins present in multiples of 8 (octagonal symmetry). They allow passive diffusion of small molecules and active transport of larger cargo.'},
+{t:'B',q:'Which component of the cytoskeleton provides the track for kinesin?',o:['Actin microfilaments','Intermediate filaments','Microtubules','Spectrin network'],a:2,e:'Microtubules are tracks for kinesin (plus-end directed, anterograde) and dynein (minus-end directed, retrograde). Actin filaments are tracks for myosin instead.'},
+{t:'B',q:'The organelle responsible for very-long-chain fatty acid oxidation and H2O2 degradation is:',o:['Mitochondria','Smooth ER','Peroxisome','Lysosome'],a:2,e:'Peroxisomes oxidise very-long-chain fatty acids by beta-oxidation, generating H2O2 which is immediately degraded by catalase, the peroxisome marker enzyme. Zellweger syndrome involves defective peroxisome biogenesis.'},
+{t:'B',q:'The thylakoid membrane is part of which organelle?',o:['Mitochondria','Peroxisome','Chloroplast','Golgi apparatus'],a:2,e:'Chloroplasts contain thylakoid membranes, the site of light reactions (photosystems I and II, electron transport chain, ATP synthase). Grana are stacks of thylakoids; stroma is the site of the Calvin cycle.'},
+{t:'B',q:'Which cytoskeletal element is involved in forming the contractile ring during cytokinesis?',o:['Intermediate filaments','Actin (microfilaments) and myosin II','Microtubules','Spectrin'],a:1,e:'The contractile ring is composed of actin filaments and myosin II, forming at the cell equator after anaphase. Myosin II uses ATP to slide actin filaments and constrict the ring, pinching the cell into two.'},
+{t:'B',q:'In the secretory pathway, O-linked glycosylation occurs in the:',o:['Rough ER','Smooth ER','Golgi apparatus','Cytoplasm'],a:2,e:'O-linked glycosylation occurs in the Golgi apparatus. N-linked glycosylation begins in the rough ER via the dolichol-phosphate pathway and is later trimmed and modified in the ER and Golgi.'},
+{t:'B',q:'FtsZ protein in bacteria is the homologue of which eukaryotic cytoskeletal protein?',o:['Actin','Tubulin','Vimentin','Spectrin'],a:1,e:'FtsZ is a GTPase that polymerises into the Z-ring at mid-cell, driving bacterial cell division. It is the prokaryotic homologue of eukaryotic tubulin. MreB is the prokaryotic homologue of actin.'},
+{t:'B',q:'The "signal hypothesis" for protein import into the ER was proposed by:',o:['George Palade','Gunter Blobel','Christian de Duve','Albert Claude'],a:1,e:'Gunter Blobel (Nobel 1999) proposed the signal hypothesis: a short N-terminal hydrophobic signal sequence directs the nascent polypeptide to the ER for co-translational translocation.'},
+{t:'B',q:'Which type of intermediate filament is found in neurons?',o:['Keratin','Vimentin','Neurofilaments (NF-L, NF-M, NF-H)','Desmin'],a:2,e:'Neurofilaments (light, medium, heavy chains) are the intermediate filaments of neurons. Keratins are in epithelial cells, vimentin in mesenchymal cells, desmin in muscle, and lamins in the nuclear lamina.'},
+{t:'B',q:'Cholesterol is primarily synthesised in which organelle?',o:['Mitochondria','Peroxisome','Smooth ER','Rough ER'],a:2,e:'Cholesterol biosynthesis (mevalonate pathway) occurs in the smooth ER. HMG-CoA reductase, the rate-limiting enzyme, is an SER membrane protein and the target of statin drugs.'},
+{t:'B',q:'Dynein motor protein moves cargo towards which end of microtubules?',o:['Plus (+) end','Minus (-) end','Both ends with equal frequency','Neither - it moves on actin'],a:1,e:'Cytoplasmic dynein moves cargo towards the minus end of microtubules (toward the cell centre). Kinesin-1 moves toward the plus end (toward the periphery).'},
+{t:'B',q:'The lysosomal membrane is protected from hydrolases by:',o:['Very low pH','Abundant cholesterol','Heavily glycosylated lysosomal membrane proteins (LIMPs/LAMPs)','Protein-free lipid domains'],a:2,e:'LAMP-1, LAMP-2 and LIMPs have extensive O-linked glycans on their lumenal domains, protecting the membrane from the roughly 50 acid hydrolases inside the lysosome.'},
+{t:'B',q:'Which structure connects adjacent plant cells and allows communication?',o:['Desmosomes','Gap junctions','Plasmodesmata','Tight junctions'],a:2,e:'Plasmodesmata are narrow channels through the plant cell wall, lined by an ER-derived membrane (desmotubule), connecting adjacent cells and allowing passage of small molecules and signalling factors.'},
+{t:'B',q:'Motor protein kinesin-1 is composed of:',o:['4 light chains only','2 heavy chains + 2 light chains (heterotetramer)','1 heavy chain + multiple regulatory subunits','Homotetramer of identical subunits'],a:1,e:'Kinesin-1 (conventional kinesin) has 2 heavy chains (motor domain, coiled-coil stalk, tail) and 2 light chains (cargo binding). It walks hand-over-hand on microtubules.'},
+{t:'B',q:'The endosymbiotic theory proposes that mitochondria originated from:',o:['Invagination of the nucleus','An ancestral alpha-proteobacterium engulfed by an archaeal host','A cyanobacterium engulfed by an ancestral eukaryote','The nuclear envelope pinching off'],a:1,e:'Lynn Margulis proposed that mitochondria derived from an alpha-proteobacterium, engulfed by an archaeal ancestor. Evidence includes the double membrane, circular mtDNA, 70S ribosomes, and maternal inheritance.'},
+{t:'B',q:'Cilia and flagella contain a core axoneme with which arrangement of microtubules?',o:['9+0 (primary cilia)','9+2 (9 outer doublets + 2 central singlets)','2+0','7+2'],a:1,e:'Motile cilia and flagella have a 9+2 axoneme, with dynein arms generating the bending force. Primary sensory cilia have 9+0, with no central pair. Kartagener syndrome results from defective dynein arms.'},
+{t:'B',q:'Catalase, a peroxisome marker enzyme, functions to:',o:['Synthesise H2O2 from O2','Convert H2O2 to H2O + O2','Oxidise NADPH','Generate free radicals for bacterial killing'],a:1,e:'Catalase catalyses 2H2O2 to 2H2O + O2, rapidly detoxifying the H2O2 produced by peroxisomal oxidases. It is one of the fastest enzymes known and is used as a peroxisome marker.'},
+{t:'B',q:'Which ribosome type is found in the mitochondrial matrix and prokaryotic cytoplasm?',o:['80S ribosomes','70S ribosomes (50S + 30S subunits)','60S + 40S only','55S exclusively in mitochondria'],a:1,e:'70S ribosomes (50S + 30S) are found in prokaryotes and chloroplasts, supporting the endosymbiotic theory. Eukaryotic cytoplasmic ribosomes are 80S. Mammalian mitochondrial ribosomes are 55S, structurally distinct but evolutionarily related.'},
+{t:'B',q:'Treadmilling of actin filaments refers to:',o:['Complete depolymerisation and repolymerisation','Addition of G-actin-ATP at the barbed end while loss of ADP-actin occurs at the pointed end','Random growth from both ends simultaneously','ATP hydrolysis without any polymerisation'],a:1,e:'Treadmilling is the net addition of ATP-actin monomers at the barbed (+) end balanced by dissociation of ADP-actin at the pointed (-) end, so the filament moves without changing length. Important for cell motility.'},
+{t:'B',q:'The Golgi apparatus is organised with which functional polarity?',o:['Cis face receives from plasma membrane; trans face receives from ER','Cis face (receives from ER) progresses through medial to trans face (sorts to destinations)','No functional polarity','Trans face faces the nucleus; cis faces the plasma membrane'],a:1,e:'The cis face (entry) receives COPII vesicles from the ER. Cargo flows through medial cisternae for glycosylation. The trans face (exit/TGN) sorts cargo to its final destinations such as the plasma membrane or lysosomes.'},
+
+{t:'C',q:'The lac operon is an example of which type of genetic regulation?',o:['Positive inducible','Negative inducible','Negative repressible','Positive repressible'],a:1,e:'The lac operon is a negative inducible system. Without lactose, the lac repressor binds the operator, switching genes off. With lactose present (allolactose as inducer), the repressor is released and transcription proceeds.'},
+{t:'C',q:'Transposons that use an RNA intermediate during transposition are classified as:',o:['Class II (DNA transposons)','Class I (retrotransposons)','Miniature inverted-repeat transposable elements','Insertion sequences'],a:1,e:'Class I retrotransposons (LINEs, SINEs, LTR elements) transpose via a copy-paste mechanism using reverse transcriptase, with an RNA intermediate that is converted to cDNA before insertion at a new location.'},
+{t:'C',q:'A nucleosome core particle contains which histone combination?',o:['(H2A-H2B-H3-H4)2 octamer wrapped by 146 bp DNA','H1 plus (H3-H4)2 tetramer plus 200 bp DNA','(H2A)4 tetramer plus 200 bp DNA','(H1)2 plus (H3-H4)2 plus (H2A-H2B)2 plus 147 bp DNA'],a:0,e:'The nucleosome core particle wraps 146 bp of DNA around a histone octamer made of two copies each of H2A, H2B, H3, and H4. H1 is the linker histone binding the entering/exiting DNA.'},
+{t:'C',q:'The "C-value paradox" refers to:',o:['All organisms having the same amount of DNA','No clear correlation between genome size and organismal complexity','Bacterial genomes being larger than eukaryotic genomes','Genome size being exactly proportional to gene number'],a:1,e:'The C-value paradox refers to the lack of correlation between haploid genome size and biological complexity, partly explained by differences in repetitive DNA content, polyploidy, and intergenic regions.'},
+{t:'C',q:'The branch point sequence in pre-mRNA splicing involves which nucleotide that attacks the 5\' splice site?',o:['Cytosine in the intron','Adenosine (A) upstream of the 3\' splice site','Guanosine at the 5\' end of the intron','Uridine at the 3\' splice site'],a:1,e:'The 2\'-OH of the branch point adenosine performs a nucleophilic attack on the 5\' splice site, forming a lariat intermediate. The freed 3\'-OH of the upstream exon then attacks the 3\' splice site to complete splicing.'},
+{t:'C',q:'Constitutive heterochromatin is found at:',o:['Active gene loci','Centromeres and telomeres (permanently condensed)','Barr bodies (inactivated X)','Regions of active transcription'],a:1,e:'Constitutive heterochromatin remains permanently condensed and transcriptionally silent, containing highly repetitive sequences at centromeres and telomeres, marked by H3K9me3 and HP1 protein.'},
+{t:'C',q:'The GU-AG rule in eukaryotic splicing states that introns:',o:['Begin with AC and end with UG','Begin with GU (5\' splice site) and end with AG (3\' splice site)','Begin and end with GC','Begin with UG and end with AC'],a:1,e:'More than 99 percent of eukaryotic introns begin with GU and end with AG. The spliceosome snRNPs recognise these sequences: U1 base-pairs with the 5\' splice site, and U2AF recognises the 3\' splice region.'},
+{t:'C',q:'Which histone modification is associated with transcriptionally active chromatin?',o:['H3K9me3','H3K27me3','H3K4me3','H3K20me3'],a:2,e:'H3K4me3 marks active promoters, while H3K36me3 marks gene bodies of active genes. H3K9me3 and H3K27me3 are repressive marks associated with heterochromatin formation.'},
+{t:'C',q:'SINEs (Short Interspersed Nuclear Elements) in the human genome are derived from:',o:['LTR retrovirus sequences','tRNA or 7SL RNA (e.g., Alu elements from 7SL RNA)','Protein-coding genes','DNA transposons'],a:1,e:'Human Alu elements, around 300 bp and roughly a million copies, are derived from 7SL RNA (the SRP RNA). They lack autonomous transposition machinery and rely on LINE-1 reverse transcriptase acting in trans.'},
+{t:'C',q:'The operon concept was first described in which organism?',o:['Drosophila melanogaster','E. coli (lac operon)','Saccharomyces cerevisiae','Bacillus subtilis'],a:1,e:'Jacob and Monod described the lac operon in E. coli in 1961, demonstrating structural genes, a regulatory gene, a promoter, and an operator, fundamentally shaping our understanding of gene regulation.'},
+{t:'C',q:'Telomeres in humans consist of tandem repeats of:',o:['ATATAT','TTAGGG (on the G-strand)','CCCCAA','AATCCC'],a:1,e:'Human telomeres consist of thousands of TTAGGG repeats, maintained by telomerase, which protects chromosome ends from degradation and shortens with each cell division unless telomerase is active.'},
+{t:'C',q:'Chromatin remodelling complexes such as SWI/SNF primarily function by:',o:['Methylating histone tails','Using ATP to reposition or evict nucleosomes','Adding histone variants exclusively','Deacetylating histone tails'],a:1,e:'ATP-dependent chromatin remodelling complexes use energy from ATP hydrolysis to slide, evict, or restructure nucleosomes, regulating access of transcription factors and RNA polymerase to DNA.'},
+{t:'C',q:'The trp operon demonstrates attenuation regulation through:',o:['A small RNA that sequesters the ribosome','Coupling of transcription and translation, where ribosome stalling determines mRNA secondary structure','Methylation of the operator','Protein-protein interactions with the sigma factor'],a:1,e:'In trp operon attenuation, high tryptophan allows fast ribosome reading past the leader peptide tryptophan codons, forming a terminator hairpin. Low tryptophan causes stalling and an anti-terminator structure, allowing transcription to continue.'},
+{t:'C',q:'Which statement about gene families is correct?',o:['Members are located only on the same chromosome','Members have identical sequences and functions','Members share significant sequence similarity and often similar functions, arising by gene duplication','Gene families are restricted to prokaryotes'],a:2,e:'Gene families arise from duplication of an ancestral gene, with members sharing sequence similarity and often overlapping functions. Examples include the globin gene family and the HOX gene family.'},
+{t:'C',q:'In Xenopus oocytes, the lampbrush chromosomes seen during meiosis I are an example of:',o:['Constitutive heterochromatin','Maximally condensed chromatin','Extremely active transcription with extended chromatin loops','Mitotic chromosome organisation'],a:2,e:'Lampbrush chromosomes have lateral DNA loops extending from chromomeres, representing sites of extremely active transcription needed for the oocyte to stockpile large amounts of RNA.'},
+{t:'C',q:'The number of snRNPs in the major spliceosome is:',o:['3 (U1, U2, U6)','5 (U1, U2, U4, U5, U6)','7 (U1-U7)','2 (U1, U2)'],a:1,e:'The major spliceosome assembles from five snRNPs: U1 (5\' splice site), U2 (branch point), U4/U6 (base-paired complex), and U5. U4 is released during catalysis as U6 base-pairs directly with the 5\' splice site and U2.'},
+{t:'C',q:'Pseudogenes are:',o:['Expressed genes with regulatory mutations','Non-functional DNA sequences that resemble functional genes','Highly expressed tissue-specific genes','Transposons that have become regulatory elements'],a:1,e:'Pseudogenes are sequences that have lost protein-coding ability, either through retrotransposition of processed mRNA or through duplication followed by disabling mutations such as stop codons or frameshifts.'},
+{t:'C',q:'X-chromosome inactivation (forming the Barr body) is an example of:',o:['Constitutive heterochromatin','Transposon silencing','Facultative heterochromatin','Euchromatin modification'],a:2,e:'Facultative heterochromatin is silenced in a cell-type or developmental-stage-specific manner. X-inactivation involves the XIST lncRNA coating the inactive X chromosome, recruiting PRC2 and forming the Barr body.'},
+{t:'C',q:'The Cot curve analysis of genomic DNA primarily reveals:',o:['GC content of the genome','The complexity and kinetics of DNA reassociation, distinguishing unique and repetitive sequences','The number of genes in the genome','The percentage of coding DNA'],a:1,e:'Cot curves plot the fraction of single-stranded DNA remaining against the product of concentration and time. Highly repetitive DNA reassociates fastest (low Cot), while unique single-copy DNA reassociates slowest (high Cot).'},
+
+{t:'D',q:'The M-phase promoting factor (MPF) that triggers entry into mitosis consists of:',o:['Cyclin A + CDK4','Cyclin B + CDK1 (CDC2)','Cyclin D + CDK6','Cyclin E + CDK2'],a:1,e:'MPF consists of Cyclin B and CDK1 (CDC2). Active MPF phosphorylates lamins for nuclear envelope breakdown and condensins for chromosome condensation, initiating mitosis. It is inactivated by APC/C-mediated cyclin B degradation.'},
+{t:'D',q:'The restriction point in the cell cycle is located in:',o:['Late S phase','Early G2','Late G1','G0 to G1 transition'],a:2,e:'The restriction point occurs in late G1, shortly before S phase entry. Once past this point, cells commit to completing division even if growth factors are withdrawn. Rb phosphorylation by Cyclin D-CDK4/6 releases E2F to drive this transition.'},
+{t:'D',q:'During anaphase of mitosis, sister chromatid separation is triggered by:',o:['Activation of securin','Phosphorylation of condensin','Separase cleaving cohesin (Scc1/Rad21)','APC/C-Cdh1 activity alone'],a:2,e:'APC/C-Cdc20 ubiquitinates securin for degradation, releasing active separase, which cleaves the cohesin subunit Scc1, allowing sister chromatids to separate and move toward opposite poles.'},
+{t:'D',q:'p53 is called the "guardian of the genome" because:',o:['It protects chromosomes from radiation directly','It activates DNA repair, cell cycle arrest, or apoptosis in response to DNA damage','It is expressed only in germline cells','It prevents chromosomal condensation'],a:1,e:'p53 is activated by DNA damage via ATM/ATR signalling and transcriptionally activates p21 for cell cycle arrest, GADD45 for repair, and pro-apoptotic genes like Bax. It is mutated in about half of all human cancers.'},
+{t:'D',q:'The spindle assembly checkpoint (SAC) monitors:',o:['Completeness of DNA replication','Correct bi-orientation and tension at kinetochores','Size of the cell','Centrosome duplication'],a:1,e:'The SAC ensures every kinetochore is properly attached to microtubules from opposite spindle poles. Unattached kinetochores recruit the mitotic checkpoint complex, inhibiting APC/C-Cdc20 and preventing premature anaphase.'},
+{t:'D',q:'During prophase I of meiosis, crossing over between homologous chromosomes occurs at which stage?',o:['Leptotene','Zygotene','Pachytene','Diakinesis'],a:2,e:'Crossing over occurs during pachytene, when the synaptonemal complex is fully formed and homologous chromosomes are fully synapsed as bivalents, allowing recombination via Holliday junctions.'},
+{t:'D',q:'Cyclin D is regulated primarily by:',o:['Internal cell cycle clock','Extracellular mitogens (growth factors)','DNA damage signals alone','Spindle integrity'],a:1,e:'Cyclin D is the primary sensor of extracellular mitogens. Growth factor signalling through Ras and MAPK induces cyclin D transcription, which is rapidly degraded if mitogens are withdrawn, linking environment to cell cycle progression.'},
+{t:'D',q:'Which CDK inhibitor of the INK4 family specifically inhibits CDK4/6?',o:['p21 (CIP1)','p27 (KIP1)','p16 (INK4a / CDKN2A)','p57 (KIP2)'],a:2,e:'The INK4 family, including p16, specifically inhibits CDK4 and CDK6 (not CDK2). p16 is a key tumour suppressor frequently deleted or silenced in cancer. The CIP/KIP family inhibits multiple CDKs more broadly.'},
+{t:'D',q:'During which phase of the cell cycle does centrosome duplication occur?',o:['G1','S phase (begins in late G1)','G2','M phase'],a:1,e:'Centrosome duplication is coordinated with DNA replication, beginning in late G1 and continuing through S phase. PLK4 is the master regulator of centriole biogenesis, ensuring exactly one round of duplication per cycle.'},
+{t:'D',q:'APC/C is an E3 ubiquitin ligase that is activated by which two activators at different cell cycle stages?',o:['Cdc20 (in mitosis) and Cdh1 (in G1)','CDK1 and CDK2','Mad2 and BubR1','Cyclin A and Cyclin B'],a:0,e:'APC/C-Cdc20 is activated at the metaphase-anaphase transition to trigger anaphase and mitotic exit. APC/C-Cdh1 is active from late mitosis through G1, keeping cyclin levels low to prevent premature S-phase entry.'},
+{t:'D',q:'The synaptonemal complex forms during which stage of meiosis?',o:['Leptotene','Zygotene (begins), complete by Pachytene','Diplotene','Diakinesis'],a:1,e:'The synaptonemal complex begins assembling at zygotene as homologous chromosomes align, and is fully assembled by pachytene. It dissolves at diplotene, after crossing over has occurred.'},
+{t:'D',q:'The DNA damage checkpoint in S phase is primarily mediated by:',o:['ATM/ATR kinases leading to Chk1/Chk2 and Cdc25 inhibition','MDM2 activating p53 directly only','APC/C directly sensing lesions','Separase and securin'],a:0,e:'ATR responds to single-stranded DNA and stalled forks, while ATM responds to double-strand breaks. Both activate Chk1/Chk2, which inhibit Cdc25 phosphatases, keeping CDK2 inactive and slowing replication until damage is resolved.'},
+{t:'D',q:'Meiosis II is similar to mitosis in that:',o:['It reduces chromosome number by half again','Sister chromatids separate in Meiosis II anaphase','It requires synapsis of homologues','It results in 2 daughter cells identical to the parent'],a:1,e:'Meiosis II is an equational division in which sister chromatids separate at anaphase, similar to mitosis. Centromeric cohesin, protected during meiosis I by shugoshin, is cleaved by separase during meiosis II.'},
+{t:'D',q:'The terms "karyokinesis" and "cytokinesis" refer to:',o:['Chromosome condensation and decondensation','Division of the nucleus and division of the cytoplasm, respectively','S phase and G2 phase','Spindle assembly and spindle disassembly'],a:1,e:'Karyokinesis refers to nuclear division spanning prophase through telophase, while cytokinesis is the physical division of the cytoplasm, occurring via a contractile ring in animal cells or a cell plate in plant cells.'},
+{t:'D',q:'Telomerase activity is typically high in:',o:['Terminally differentiated somatic cells','Cancer cells and normal germ/stem cells','Senescent cells','G0 arrested cells'],a:1,e:'Telomerase is active in germ cells, embryonic and adult stem cells, and the majority of cancers, which must reactivate telomerase for unlimited replication. Most somatic cells silence telomerase, leading to progressive telomere shortening.'},
+{t:'D',q:'Which protein forms the primary scaffold of the mitotic chromosome?',o:['Histone H1','Topoisomerase II and condensin complexes','Cohesin alone','Lamin A'],a:1,e:'Topoisomerase IIα decatenates intertwined DNA, while condensin I and II complexes organise DNA loops into the compacted scaffold of the mitotic chromosome. Condensin II acts first in the nucleus; condensin I acts after nuclear envelope breakdown.'},
+{t:'D',q:'In the G2/M checkpoint, the Wee1 kinase inhibits mitotic entry by:',o:['Degrading Cyclin B','Phosphorylating CDK1 on Tyr15/Thr14 (inhibitory phosphorylation)','Activating the APC/C','Cleaving cohesin'],a:1,e:'Wee1 kinase adds inhibitory phosphates to CDK1, keeping Cyclin B-CDK1 inactive until repair is complete. Cdc25C phosphatase removes these phosphates to activate CDK1 and trigger mitotic entry, forming a bistable switch.'},
+{t:'D',q:'Okazaki fragments are produced on which strand during DNA replication?',o:['Leading strand','Lagging strand','Both strands equally','Only at telomeres'],a:1,e:'The lagging strand is synthesised discontinuously as Okazaki fragments, each requiring a new RNA primer, because DNA polymerase can only synthesise in the 5\' to 3\' direction while the template runs antiparallel.'},
+
+{t:'E',q:'During which growth phase are bacteria most sensitive to antibiotics that target cell wall synthesis?',o:['Lag phase','Exponential/Log phase','Stationary phase','Death phase'],a:1,e:'Exponential phase bacteria are actively synthesising new peptidoglycan for cell division, making them most sensitive to cell-wall active antibiotics. In stationary phase, peptidoglycan synthesis largely ceases, reducing susceptibility.'},
+{t:'E',q:'The growth yield coefficient (Y) is defined as:',o:['Rate of cell division per unit time','Mass of cells produced per unit mass of substrate consumed','Amount of ATP produced per gram of substrate','Ratio of generation time to lag time'],a:1,e:'The yield coefficient Y equals biomass produced divided by substrate consumed. The related molar growth yield (Y_ATP) reflects metabolic efficiency, with aerobic growth typically giving higher yield than anaerobic growth.'},
+{t:'E',q:'FtsZ protein in bacteria:',o:['Is a type II topoisomerase essential for DNA repair','Forms the Z-ring at mid-cell to initiate binary fission','Is a sigma factor for heat shock genes','Is a type IV pilus component'],a:1,e:'FtsZ, a tubulin homologue, polymerises as a GTPase into the Z-ring at mid-cell, recruiting other divisome proteins that synthesise the septal peptidoglycan and drive bacterial binary fission.'},
+{t:'E',q:'The SOS response in E. coli involves which two key proteins?',o:['SigB and RpoS','RecA and LexA','DnaA and DnaK','OxyR and SoxR'],a:1,e:'RecA binds single-stranded DNA from damage, forming a nucleofilament that catalyses autocleavage of the LexA repressor. This derepresses more than 40 SOS genes involved in DNA repair and damage tolerance.'},
+{t:'E',q:'Which sigma factor mediates the heat shock response in E. coli?',o:['Sigma-70 (housekeeping)','Sigma-32 (encoded by rpoH)','Sigma-S (RpoS, stationary phase)','Sigma-54 (nitrogen)'],a:1,e:'Sigma-32 recognises heat shock promoters and is normally rapidly degraded. Heat stress titrates away chaperones that would otherwise degrade sigma-32, stabilising it and increasing transcription of chaperone and protease genes.'},
+{t:'E',q:'Compatible solutes accumulated by bacteria during osmotic stress include:',o:['Sodium chloride','Betaine, ectoine, proline, and trehalose','Urea','Ethanol'],a:1,e:'Under hyperosmotic stress, bacteria accumulate compatible solutes such as glycine betaine, ectoine, proline, and trehalose, which raise internal osmolality without disrupting enzyme activity, following an initial rapid K+ uptake response.'},
+{t:'E',q:'Quorum sensing in Gram-negative bacteria uses which type of autoinducer?',o:['Competence stimulating peptides','N-acyl homoserine lactones (AHL)','Cyclic di-GMP','Oligopeptide pheromones'],a:1,e:'Gram-negative quorum sensing uses AHL autoinducers synthesised by LuxI-type enzymes. At high cell density, AHL accumulates and binds LuxR-type activators, triggering coordinated gene expression changes such as bioluminescence or virulence.'},
+{t:'E',q:'Sporulation in Bacillus subtilis is an example of:',o:['Symmetric cell division','Asymmetric cell division producing a forespore and mother cell','Binary fission under stress','Budding off a new cell'],a:1,e:'B. subtilis sporulation involves asymmetric division into a small forespore and a larger mother cell, governed by a cascade of compartment-specific sigma factors, with the mother cell eventually lysing to release the mature spore.'},
+{t:'E',q:'The OxyR protein in bacteria responds to:',o:['Superoxide anion','Hydrogen peroxide','Nitric oxide','Alkylating agents'],a:1,e:'OxyR is activated by hydrogen peroxide oxidising a key cysteine residue, upregulating genes such as catalase-peroxidase and alkyl hydroperoxide reductase. SoxRS instead responds to superoxide stress.'},
+{t:'E',q:'The generation time of E. coli under optimal conditions is approximately:',o:['About 5 minutes','About 20 minutes','About 2 hours','About 8 hours'],a:1,e:'E. coli doubles roughly every 20 minutes under optimal rich-medium conditions at 37 degrees Celsius. In minimal medium, generation time extends to 60-90 minutes, while slow-growing organisms like M. tuberculosis take around 20 hours.'},
+{t:'E',q:'During the stationary phase of bacterial growth, which sigma factor becomes predominant in E. coli?',o:['Sigma-70','Sigma-32','Sigma-S (RpoS)','Sigma-54'],a:2,e:'RpoS (sigma-S) is the stationary-phase and general stress sigma factor, accumulating during starvation and various stresses, and upregulating over a hundred genes needed for long-term survival.'},
+{t:'E',q:'Biofilm formation by bacteria is primarily coordinated by:',o:['Temperature sensing only','Cyclic di-GMP and quorum sensing','SOS response exclusively','Sporulation regulon'],a:1,e:'Biofilm formation is regulated by the second messenger cyclic di-GMP, where high levels promote extracellular matrix synthesis and repress motility, while quorum sensing coordinates biofilm maturation and dispersal at the population level.'},
+{t:'E',q:'The RecA protein of E. coli has all of the following functions except:',o:['Catalysing DNA strand exchange during homologous recombination','Co-protease activity stimulating LexA autocleavage','Stimulating autocleavage of UmuD to UmuD-prime','Catalysing mRNA degradation during SOS'],a:3,e:'RecA mediates strand exchange in recombination and acts as a co-protease to stimulate autocleavage of LexA and UmuD. It does not degrade mRNA; that role belongs to ribonucleases such as RNase E.'},
+{t:'E',q:'Caulobacter crescentus divides asymmetrically producing:',o:['Two identical stalked cells','A motile swarmer cell and a sessile stalked cell','Two swarmer cells','A spore and a vegetative cell'],a:1,e:'Caulobacter crescentus always produces a motile, flagellated swarmer cell and a sessile stalked cell upon division. The swarmer cell must differentiate into a stalked cell before it can begin DNA replication.'},
+{t:'E',q:'Which enzyme degrades H2O2 in both peroxisomes and bacteria?',o:['Superoxide dismutase','Catalase','Glutathione peroxidase','Thioredoxin reductase'],a:1,e:'Catalase converts hydrogen peroxide into water and oxygen and is found in both eukaryotic peroxisomes and bacterial cytoplasm or periplasm. It is among the fastest enzymes known.'},
+{t:'E',q:'The term "auxotroph" in microbiology refers to:',o:['An organism that can grow on minimal medium','A mutant requiring a specific nutrient not needed by the wild type','An organism that uses light as energy','A bacterium that can survive without oxygen'],a:1,e:'An auxotroph has lost the ability to synthesise a required compound and must have it supplied externally, in contrast to a prototroph, which can synthesise all needed compounds from minimal medium.'},
+{t:'E',q:'Cold shock response in bacteria involves upregulation of:',o:['Heat shock proteins','RNA helicases and cold shock proteins (CspA family) that resolve mRNA secondary structures','Sigma factor sigma-32','Sporulation proteins'],a:1,e:'Cold shock causes mRNA secondary structures to stabilise, stalling ribosomes. CspA family proteins act as RNA chaperones to destabilise these structures, while RNA helicases unwind stable duplexes, restoring translation at low temperature.'},
+{t:'E',q:'In the Monod equation, Ks represents:',o:['Maximum growth rate','Substrate concentration at which growth rate equals half the maximum','Yield coefficient','Inhibition constant'],a:1,e:'The Monod equation describes microbial growth analogously to Michaelis-Menten kinetics. Ks is the substrate concentration at which the specific growth rate equals half of its maximum value, reflecting substrate affinity.'},
+{t:'A',q:'Gap junctions between animal cells are formed by which protein, allowing direct cytoplasmic communication?',o:['Cadherins','Connexins (forming connexons)','Integrins','Claudins'],a:1,e:'Gap junctions are formed by connexin proteins, six of which assemble into a connexon. Two connexons from adjacent cells align to form a complete channel, allowing direct passage of ions and small molecules between cytoplasms.'},
+{t:'C',q:'Histone acetylation is removed by which class of enzymes, generally leading to gene repression?',o:['Histone acetyltransferases (HATs)','Histone deacetylases (HDACs)','DNA methyltransferases','Histone demethylases'],a:1,e:'Histone deacetylases (HDACs) remove acetyl groups from histone tails, restoring positive charge and tightening DNA-histone interactions, generally leading to a more condensed, repressive chromatin state. HATs add acetyl groups for activation.'},
+{t:'D',q:'In humans, nondisjunction during meiosis affecting chromosome 21 can result in which condition?',o:['Turner syndrome','Down syndrome (trisomy 21)','Klinefelter syndrome','Cri-du-chat syndrome'],a:1,e:'Nondisjunction, the failure of chromosomes to separate properly during meiosis I or II, can produce a gamete with an extra chromosome 21. Fertilisation then results in trisomy 21, causing Down syndrome.'},
+{t:'B',q:'Which structural protein anchors intermediate filaments at the nuclear periphery, forming the nuclear lamina?',o:['Tubulin','Actin','Lamin A/B/C','Spectrin'],a:2,e:'Lamins (A, B, and C) are nuclear intermediate filament proteins that polymerise to form the nuclear lamina, lining the inner nuclear membrane, providing structural support, and helping organise chromatin and nuclear pore complexes.'},
+];
+
+
+function startQuiz(){
+  const n=parseInt(document.getElementById('qCount').value);
+  const tp=document.getElementById('qTopic').value;
+  let pool = tp==='all' ? QDB.slice() : QDB.filter(x=>x.t===tp);
+  for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const tmp=pool[i];pool[i]=pool[j];pool[j]=tmp;}
+  qPool=pool.slice(0,Math.min(n,pool.length));
+  qIdx=0; qRight=0; qWrong=0;
+  document.getElementById('sbTot').textContent=qPool.length;
+  document.getElementById('qSetup').style.display='none';
+  document.getElementById('qResult').style.display='none';
+  document.getElementById('qSession').style.display='block';
+  renderQ();
+}
+
+function renderQ(){
+  answered=false;
+  const q=qPool[qIdx];
+  document.getElementById('sbCur').textContent=qIdx+1;
+  document.getElementById('nextBtn').style.display='none';
+  let optsHtml = '';
+  for(let i=0;i<q.o.length;i++){
+    optsHtml += '<button class="opt-btn" onclick="pick('+i+','+q.a+',this)">'+String.fromCharCode(65+i)+'. '+q.o[i]+'</button>';
+  }
+  document.getElementById('qCard').innerHTML =
+    '<div class="q-meta">Question '+(qIdx+1)+' / '+qPool.length+' &middot; Topic '+q.t+'</div>'+
+    '<div class="q-stem">'+q.q+'</div>'+
+    '<div class="opts">'+optsHtml+'</div>'+
+    '<div class="q-exp" id="qexp">'+q.e+'</div>';
+}
+
+function pick(sel,correct,btn){
+  if(answered)return;
+  answered=true;
+  const opts = document.querySelectorAll('.opt-btn');
+  opts.forEach(function(b){b.disabled=true;});
+  if(sel===correct){btn.classList.add('correct');qRight++;}
+  else{btn.classList.add('wrong');opts[correct].classList.add('correct');qWrong++;}
+  document.getElementById('qexp').style.display='block';
+  const pct=Math.round((qRight/(qRight+qWrong))*100);
+  document.getElementById('sbRight').textContent=qRight;
+  document.getElementById('sbWrong').textContent=qWrong;
+  document.getElementById('sbPct').textContent=pct+'%';
+  const nb=document.getElementById('nextBtn');
+  nb.style.display='inline-block';
+  nb.textContent = (qIdx+1<qPool.length) ? 'Next' : 'See Results';
+}
+
+function nextQ(){
+  qIdx++;
+  if(qIdx>=qPool.length){showResult();}else{renderQ();}
+}
+
+function showResult(){
+  document.getElementById('qSession').style.display='none';
+  const pct=Math.round((qRight/qPool.length)*100);
+  let msg;
+  if(pct>=90){msg='Brilliant!';}
+  else if(pct>=75){msg='Great Work!';}
+  else if(pct>=60){msg='Keep Going!';}
+  else {msg='More Practice Needed';}
+  document.getElementById('qResult').style.display='block';
+  document.getElementById('qResult').innerHTML =
+    '<div class="result-panel">'+
+      '<h2>'+msg+'</h2>'+
+      '<div class="big-pct">'+pct+'%</div>'+
+      '<div class="res-grid">'+
+        '<div class="res-box"><div class="n" style="color:var(--lime)">'+qRight+'</div><div class="l">Correct</div></div>'+
+        '<div class="res-box"><div class="n" style="color:var(--coral)">'+qWrong+'</div><div class="l">Wrong</div></div>'+
+        '<div class="res-box"><div class="n">'+qPool.length+'</div><div class="l">Total</div></div>'+
+      '</div>'+
+      '<button class="btn btn-lime" style="margin-right:10px" onclick="retake()">Retake</button>'+
+      '<button class="btn btn-ghost" onclick="backSetup()">New Quiz</button>'+
+    '</div>';
+}
+
+function retake(){
+  for(let i=qPool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const tmp=qPool[i];qPool[i]=qPool[j];qPool[j]=tmp;}
+  qIdx=0;qRight=0;qWrong=0;
+  document.getElementById('sbRight').textContent='0';
+  document.getElementById('sbWrong').textContent='0';
+  document.getElementById('sbPct').textContent='0%';
+  document.getElementById('qResult').style.display='none';
+  document.getElementById('qSession').style.display='block';
+  renderQ();
+}
+function backSetup(){document.getElementById('qResult').style.display='none';document.getElementById('qSetup').style.display='block';}
+function quitQuiz(){document.getElementById('qSession').style.display='none';document.getElementById('qSetup').style.display='block';}
+
+
+const REVDATA=[
+  {cls:'',title:'A - Membrane Structure: Must-Know Facts',rows:[
+    ['Fluid Mosaic Model','Singer and Nicolson (1972); proteins float in a fluid phospholipid bilayer'],
+    ['Bilayer leaflets','Inner: PS, PE, PI (charged); Outer: PC, sphingomyelin, glycolipids'],
+    ['Cholesterol','Fluidity buffer; decreases fluidity at high temp, increases it at low temp; forms lipid rafts with sphingolipids'],
+    ['Na+/K+-ATPase','3 Na+ out, 2 K+ in per ATP; maintains resting potential near -70 mV; a P-type ATPase'],
+    ['Sorting signals','M6P targets lysosome; GPI-anchor sits in outer leaflet raft; KDEL retains proteins in the ER'],
+    ['Vesicle coats','COPII moves ER to Golgi; COPI moves Golgi to ER; Clathrin/AP-2 drives endocytosis; Clathrin/AP-1 sorts TGN to endosome'],
+    ['Aquaporins','Water channels; AQP2 is regulated by ADH (vasopressin) in the kidney collecting duct'],
+    ['Action potential','Depolarisation from Na+ influx via voltage-gated channels; repolarisation from K+ efflux; blocked by TTX and TEA respectively'],
+  ]},
+  {cls:'amber',title:'B - Organelles: Must-Know Facts',rows:[
+    ['Mitochondria','Double membrane; 70S ribosomes; own circular DNA; about 1000-2000 per cell; endosymbiotic origin'],
+    ['Chloroplast','Thylakoids carry out light reactions (PSII, PSI, ETC); stroma carries out the Calvin cycle; has its own DNA; derived from cyanobacteria'],
+    ['Peroxisome','Catalase is the marker enzyme; performs beta-oxidation of very-long-chain fatty acids; converts H2O2 to H2O and O2; Zellweger syndrome involves PEX gene defects'],
+    ['ER','Rough ER handles co-translational protein insertion, N-glycosylation, and disulfide bonds; Smooth ER handles lipid and steroid synthesis, drug detox, and Ca2+ storage'],
+    ['Golgi','Organised cis to medial to trans; carries out O-glycosylation, M6P tagging, and sulfation; acts as the main sorting hub'],
+    ['Lysosome','Internal pH about 4.8, maintained by V-ATPase; contains about 50 hydrolases; LAMP1/2 glycoproteins protect the membrane; I-cell disease results from faulty M6P targeting'],
+    ['Cytoskeleton','Actin filaments are 7 nm with barbed and pointed ends; microtubules are 25 nm tubulin polymers with a GTP cap, used by kinesin and dynein; intermediate filaments are 10 nm and lack motor proteins'],
+    ['Centrosome','Organises the mitotic spindle; duplicates during S phase; PLK4 triggers centriole biogenesis'],
+  ]},
+  {cls:'coral',title:'C - Genes and Chromosomes: Must-Know Facts',rows:[
+    ['Lac operon','A negative inducible system; lacI encodes the repressor; allolactose is the inducer; CRP-cAMP acts as a positive activator (catabolite repression)'],
+    ['Trp operon','A negative repressible system with attenuation, involving coupled transcription and translation through a leader peptide containing two tryptophan codons'],
+    ['Nucleosome','A histone octamer of two copies each of H2A, H2B, H3, and H4 wrapped by 146 bp of DNA, with H1 acting as the linker histone; repeat length is about 200 bp'],
+    ['Heterochromatin','Constitutive heterochromatin occurs at centromeres and telomeres, marked by H3K9me3 and HP1; facultative heterochromatin includes X-inactivation, marked by XIST RNA and H3K27me3'],
+    ['Active marks','H3K4me3 marks active promoters, H3K36me3 marks active gene bodies, and histone acetylation generally opens chromatin for transcription'],
+    ['Splicing','Follows the GU-AG rule; uses a branch point adenosine; the spliceosome consists of U1, U2, U4, U5, and U6 snRNPs; forms a lariat intermediate'],
+    ['Transposons','Class I retrotransposons use an RNA intermediate in a copy-paste mechanism (LINEs, SINEs); Class II DNA transposons use a cut-paste mechanism via DDE transposase'],
+    ['Telomeres','Consist of TTAGGG repeats maintained by telomerase; protect chromosome ends; their shortening in somatic cells underlies the Hayflick limit'],
+  ]},
+  {cls:'lime',title:'D - Cell Cycle: Must-Know Facts',rows:[
+    ['Cyclin-CDK pairs','G1 phase uses Cyclin D with CDK4/6 for Rb phosphorylation; G1 to S transition uses Cyclin E with CDK2; S phase uses Cyclin A with CDK2; M phase uses Cyclin B with CDK1 (forming MPF)'],
+    ['Rb pathway','Unphosphorylated Rb sequesters E2F, keeping S-phase genes off; Cyclin D-CDK4/6 phosphorylates Rb, releasing E2F to switch these genes on'],
+    ['CDK inhibitors','The INK4 family (p15, p16, p18, p19) specifically inhibits CDK4/6; the CIP/KIP family (p21, p27, p57) inhibits CDK2 and CDK1 more broadly'],
+    ['p53 pathway','DNA damage activates ATM/ATR, which releases p53 from MDM2; p53 then raises p21 to arrest the cycle or raises Bax to trigger apoptosis'],
+    ['Anaphase trigger','APC/C-Cdc20 ubiquitinates securin, freeing separase to cleave the Scc1 cohesin subunit, allowing sister chromatids to separate'],
+    ['Spindle checkpoint','The mitotic checkpoint complex, made of Mad2, BubR1, and Bub3, inhibits APC/C-Cdc20; even a single unattached kinetochore can arrest the whole cell'],
+    ['Meiosis I prophase stages','In order: Leptotene, Zygotene (synapsis begins), Pachytene (crossing over), Diplotene, and Diakinesis'],
+    ['MPF inactivation','APC/C-Cdc20 degrades Cyclin B to inactivate CDK1 and exit mitosis; APC/C-Cdh1 then stays active through G1 to keep cyclin levels low'],
+  ]},
+  {cls:'sky',title:'E - Microbial Physiology: Must-Know Facts',rows:[
+    ['Growth phases','Lag phase for adaptation, exponential phase with constant doubling and highest antibiotic sensitivity, stationary phase, and death phase'],
+    ['E. coli doubling time','About 20 minutes under optimal conditions; population follows N equals N0 times 2 to the power of the number of generations'],
+    ['Monod equation','Growth rate equals maximum rate times substrate concentration divided by the sum of Ks and substrate concentration; Ks is the substrate level at half-maximal growth rate'],
+    ['SOS response','DNA damage generates single-stranded DNA bound by RecA, which triggers LexA autocleavage and derepresses more than 40 genes including uvrABC and umuDC'],
+    ['Heat shock in E. coli','Mediated by sigma-32 (the rpoH gene product), which upregulates chaperones such as GroEL, GroES, DnaK, and DnaJ; sigma-32 is normally degraded by the FtsH protease'],
+    ['FtsZ','A tubulin homologue and GTPase that forms the Z-ring, recruiting the divisome and driving bacterial binary fission'],
+    ['Quorum sensing','Gram-negative bacteria use AHL autoinducers sensed through LuxI/LuxR systems; Gram-positive bacteria typically use oligopeptide signals; both coordinate virulence and biofilm behaviour'],
+    ['Stress sigma factors','Sigma-S (RpoS) governs the stationary phase and general stress response in E. coli, while sigma-32 governs the heat shock response specifically'],
+  ]},
+];
+
+let revHtml = '';
+for(let s=0;s<REVDATA.length;s++){
+  const sec = REVDATA[s];
+  let rowsHtml = '';
+  for(let r=0;r<sec.rows.length;r++){
+    rowsHtml += '<div class="rev-row"><div class="dot"></div><div><strong>'+sec.rows[r][0]+': </strong>'+sec.rows[r][1]+'</div></div>';
+  }
+  revHtml += '<div class="rev-card '+sec.cls+'"><h3>'+sec.title+'</h3>'+rowsHtml+'</div>';
+}
+document.getElementById('revGrid').innerHTML = revHtml;
+
+</script>
+</body>
+</html>
